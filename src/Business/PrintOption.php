@@ -15,9 +15,9 @@ class PrintOption
      * The format in which the parcel labels should be returned.
      * PDF, BARCODE_IMAGE, MULTIPAGE_IMAGE as file output; DPL, PDL, ZPL for direct printing.
      * In any case the output is base64 encoded.
-     * @var OutputFormatType
+     * @var PrinterLanguageType
      */
-    protected OutputFormatType $outputFormat;
+    protected PrinterLanguageType $printerLanguage;
 
     /**
      * Declares the paper format for parcel label print, either "A4", "A6" or "A7".
@@ -40,20 +40,20 @@ class PrintOption
     protected StartPosition $startPosition;
 
     /**
-     * @return OutputFormatType|null
+     * @return PrinterLanguageType|null
      */
-    public function getOutputFormat(): ?OutputFormatType
+    public function getPrinterLanguage(): ?PrinterLanguageType
     {
-        return $this->outputFormat ?? null;
+        return $this->printerLanguage ?? null;
     }
 
     /**
-     * @param OutputFormatType $outputFormat
+     * @param PrinterLanguageType $printerLanguage
      * @return static
      */
-    public function setOutputFormat(OutputFormatType $outputFormat): static
+    public function setPrinterLanguage(PrinterLanguageType $printerLanguage): static
     {
-        $this->outputFormat = $outputFormat;
+        $this->printerLanguage = $printerLanguage;
         return $this;
     }
 

@@ -94,7 +94,7 @@ try {
                     ->addPrintOption(
                         (new \Dpd\Business\PrintOption())
                             ->setPaperFormatA4()
-                            ->setOutputFormat(\Dpd\Business\OutputFormatType::multipageImage())
+                            ->setPrinterLanguage(\Dpd\Business\PrinterLanguageType::multipageImage())
                     )
                     ->setSplitByParcel(true)
             )
@@ -203,9 +203,9 @@ try {
                 && $shipmentResponse->getParcelInformation()->getOutput() instanceof \Dpd\Business\OutputType
                 && $shipmentResponse->getParcelInformation()->getOutput()->getContent()
             ) {
-                if ($shipmentResponse->getParcelInformation()->getOutput()->getFormat() == \Dpd\Business\OutputFormatType::TYPE_PDF) {
+                if ($shipmentResponse->getParcelInformation()->getOutput()->getFormat() == \Dpd\Business\PrinterLanguageType::TYPE_PDF) {
                     file_put_contents($shipmentResponse->getParcelInformation()->getParcelLabelNumber() . '.pdf', $shipmentResponse->getParcelInformation()->getOutput()->getContent());
-                } elseif ($shipmentResponse->getParcelInformation()->getOutput()->getFormat() == \Dpd\Business\OutputFormatType::TYPE_MULTIPAGE_IMAGE) {
+                } elseif ($shipmentResponse->getParcelInformation()->getOutput()->getFormat() == \Dpd\Business\PrinterLanguageType::TYPE_MULTIPAGE_IMAGE) {
                     file_put_contents($shipmentResponse->getParcelInformation()->getParcelLabelNumber() . '.gif', $shipmentResponse->getParcelInformation()->getOutput()->getContent());
                 }
             }

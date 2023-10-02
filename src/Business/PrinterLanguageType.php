@@ -4,7 +4,7 @@ namespace Dpd\Business;
 
 use Dpd\Exception\WrongArgumentException;
 
-class OutputFormatType
+class PrinterLanguageType
 {
     const TYPE_PDF = 'PDF';
     const TYPE_ZPL = 'ZPL';
@@ -16,15 +16,15 @@ class OutputFormatType
     /**
      * @var string
      */
-    protected string $OutputFormatType;
+    protected string $printerFormatType;
 
     /**
-     * @param string $outputFormatType
+     * @param string $printerFormatType
      * @throws WrongArgumentException
      */
-    public function __construct(string $outputFormatType)
+    public function __construct(string $printerFormatType)
     {
-        $this->setOutputFormatType($outputFormatType);
+        $this->setPrinterFormatType($printerFormatType);
     }
 
     /**
@@ -32,15 +32,15 @@ class OutputFormatType
      */
     public function __toString()
     {
-        return $this->OutputFormatType;
+        return $this->printerFormatType;
     }
 
     /**
      * @return string
      */
-    public function getOutputFormatType(): string
+    public function getPrinterFormatType(): string
     {
-        return $this->OutputFormatType;
+        return $this->printerFormatType;
     }
 
     /**
@@ -48,9 +48,9 @@ class OutputFormatType
      * @return static
      * @throws WrongArgumentException
      */
-    public function setOutputFormatType(string $outputFormatType): static
+    public function setPrinterFormatType(string $outputFormatType): static
     {
-        if (!in_array($outputFormatType, $allowedTypes = $this->getAllowedOutputFormatTypeList())) {
+        if (!in_array($outputFormatType, $allowedTypes = $this->getAllowedPrinterLanguageTypeList())) {
             throw new WrongArgumentException(
                 sprintf(
                     'allowed OutputFormatType is %s, entered %s',
@@ -60,7 +60,7 @@ class OutputFormatType
             );
         }
 
-        $this->OutputFormatType = $outputFormatType;
+        $this->printerFormatType = $outputFormatType;
         return $this;
     }
 
@@ -115,7 +115,7 @@ class OutputFormatType
     /**
      * @return string[]
      */
-    public function getAllowedOutputFormatTypeList(): array
+    public function getAllowedPrinterLanguageTypeList(): array
     {
         return [
             self::TYPE_PDF,
