@@ -1,5 +1,5 @@
 {
-    "name": "blobswop/dpd-php-api",
+    "name": "wics/dpd-php-api",
     "type": "library",
     "description": "PHP wrapper for DPD Germany SOAP API",
     "require": {
