@@ -25,12 +25,6 @@ class ShipmentResponse
     protected ParcelInformationType $parcelInformation;
 
     /**
-     * Contains information about errors during shipment order processing.
-     * @var FaultCodeType
-     */
-    protected FaultCodeType $faults;
-
-    /**
      * @return string|null
      */
     public function getIdentificationNumber(): ?string
@@ -52,22 +46,5 @@ class ShipmentResponse
     public function getParcelInformation(): ?ParcelInformationType
     {
         return $this->parcelInformation ?? null;
-    }
-
-    /**
-     * @return FaultCodeType|null
-     */
-    public function getFaults(): ?FaultCodeType
-    {
-        return $this->faults ?? null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isError(): bool
-    {
-        return
-            $this->getFaults() instanceof FaultCodeType;
     }
 }

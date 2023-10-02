@@ -2,66 +2,162 @@
 
 namespace Dpd\Business;
 
+use Dpd\Exception\WrongArgumentException;
+
 /** Options how to return the parcel labels */
 class PrintOptions
 {
-    /**
-     * The formats in which the parcel labels should be returned.
-     * If more than one format is set, the option splitByParcel is set implicitly.
-     * @var PrintOption[]
-     */
-    protected array $printOption;
+    const PAPER_FORMAT_A4 = 'A4';
+    const PAPER_FORMAT_A6 = 'A6';
+    const PAPER_FORMAT_A7 = 'A7';
 
     /**
-     * Determines whether a complete parcel label sheet will be created or a single one for each parcel.
-     * If format is BARCODE_IMAGE then this is set implicitly.
-     * @var bool
+     * The format in which the parcel labels should be returned.
+     * PDF, BARCODE_IMAGE, MULTIPAGE_IMAGE as file output; DPL, PDL, ZPL for direct printing.
+     * In any case the output is base64 encoded.
+     * @var PrinterLanguageType
      */
-    protected bool $splitByParcel;
+    protected PrinterLanguageType $printerLanguage;
 
     /**
-     * @return PrintOption[]|null
+     * Declares the paper format for parcel label print, either "A4", "A6" or "A7".
+     * For direct printing must be set to "A6". "A7" only prints return labels.
+     * @var string
      */
-    public function getPrintOption(): ?array
+    protected string $paperFormat;
+
+    /**
+     * Information about the printer, if direct printing is enabled.
+     * @var Printer
+     */
+    protected Printer $printer;
+
+    /**
+     * The start position of the first parcellabel on the first page, if page format A4 is chosen.
+     * Ignored on other paperformats
+     * @var StartPosition
+     */
+    protected StartPosition $startPosition;
+
+    /**
+     * @return PrinterLanguageType|null
+     */
+    public function getPrinterLanguage(): ?PrinterLanguageType
     {
-        return $this->printOption ?? null;
+        return $this->printerLanguage ?? null;
     }
 
     /**
-     * @param PrintOption $printOption
+     * @param PrinterLanguageType $printerLanguage
      * @return static
      */
-    public function addPrintOption(PrintOption $printOption): static
+    public function setPrinterLanguage(PrinterLanguageType $printerLanguage): static
     {
-        $this->printOption[] = $printOption;
+        $this->printerLanguage = $printerLanguage;
         return $this;
     }
 
     /**
-     * @param PrintOption[] $printOption
-     * @return static
+     * @return string|null
      */
-    public function setPrintOption(array $printOption): static
+    public function getPaperFormat(): ?string
     {
-        $this->printOption = $printOption;
+        return $this->paperFormat ?? null;
+    }
+
+    /**
+     * @param string $paperFormat
+     * @return static
+     * @throws WrongArgumentException
+     */
+    public function setPaperFormat(string $paperFormat): static
+    {
+        if (!in_array($paperFormat, $allowedList = $this->getAllowedPaperFormatList())) {
+            throw new WrongArgumentException(
+                sprintf(
+                    'allowed paperFormat is %s, entered %s',
+                    implode(', ', $allowedList),
+                    $paperFormat
+                )
+            );
+        }
+
+        $this->paperFormat = $paperFormat;
         return $this;
     }
 
     /**
-     * @return bool|null
+     * @return static
      */
-    public function isSplitByParcel(): ?bool
+    public function setPaperFormatA4(): static
     {
-        return $this->splitByParcel ?? null;
+        $this->paperFormat = self::PAPER_FORMAT_A4;
+        return $this;
     }
 
     /**
-     * @param bool $splitByParcel
      * @return static
      */
-    public function setSplitByParcel(bool $splitByParcel): static
+    public function setPaperFormatA6(): static
     {
-        $this->splitByParcel = $splitByParcel;
+        $this->paperFormat = self::PAPER_FORMAT_A6;
         return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function setPaperFormatA7(): static
+    {
+        $this->paperFormat = self::PAPER_FORMAT_A7;
+        return $this;
+    }
+
+    /**
+     * @return Printer|null
+     */
+    public function getPrinter(): ?Printer
+    {
+        return $this->printer ?? null;
+    }
+
+    /**
+     * @param Printer $printer
+     * @return static
+     */
+    public function setPrinter(Printer $printer): static
+    {
+        $this->printer = $printer;
+        return $this;
+    }
+
+    /**
+     * @return StartPosition|null
+     */
+    public function getStartPosition(): ?StartPosition
+    {
+        return $this->startPosition ?? null;
+    }
+
+    /**
+     * @param StartPosition $startPosition
+     * @return static
+     */
+    public function setStartPosition(StartPosition $startPosition): static
+    {
+        $this->startPosition = $startPosition;
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAllowedPaperFormatList(): array
+    {
+        return [
+            self::PAPER_FORMAT_A4,
+            self::PAPER_FORMAT_A6,
+            self::PAPER_FORMAT_A7
+        ];
     }
 }

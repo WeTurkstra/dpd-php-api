@@ -9,7 +9,7 @@ class StoreOrdersResponseType
      * Contains parcel label data in bytes.
      * @var OutputType
      */
-    protected OutputType $output;
+    protected string $parcellabelsPDF;
 
     /**
      * Contains response data for every shipment order.
@@ -20,9 +20,9 @@ class StoreOrdersResponseType
     /**
      * @return OutputType|null
      */
-    public function getOutput(): ?OutputType
+    public function getParcellabelsPDF(): ?OutputType
     {
-        return $this->output ?? null;
+        return $this->parcellabelsPDF ?? null;
     }
 
     /**
