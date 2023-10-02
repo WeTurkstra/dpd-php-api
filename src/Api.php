@@ -33,8 +33,8 @@ class Api
     private static int $environment = self::DEV_ENVIRONMENT;
     /** @var string[]  */
     private array $endpoint = [
-        self::DEV_ENVIRONMENT => 'https://public-ws-stage.dpd.com/',
-        self::PROD_ENVIRONMENT => 'https://public-ws.dpd.com/'
+        self::DEV_ENVIRONMENT => 'https://shipperadmintest.dpd.nl/PublicAPI/',
+        self::PROD_ENVIRONMENT => 'https://wsshipper.dpd.nl/soap/'
     ];
 
     /**
@@ -73,13 +73,13 @@ class Api
     public function auth(Credentials $credentials): bool|Login|AuthenticationFault
     {
         $client = new SoapClient(
-            $this->getEndpoint() . 'services/LoginService/V2_0/?wsdl',
+            $this->getEndpoint() . '/WSDL/LoginServiceV21.wsdl',
             [
                 'trace' => true,
                 'classmap' => [ 'Login' => Login::class ]
             ]
         );
-        $client->__setLocation($this->getEndpoint() . 'services/LoginService/V2_0/');
+        $client->__setLocation($this->getEndpoint() . 'services/LoginService/V2_1/');
 
         try {
             $response = $client->getAuth($credentials);
@@ -102,7 +102,7 @@ class Api
     public function storeOrders(Authentication $authentication, StoreOrders $storeOrders): bool|StoreOrdersResponseType|AuthenticationFault
     {
         $client = new SoapClient(
-            $this->getEndpoint() . 'services/ShipmentService/V4_4/?wsdl',
+            $this->getEndpoint() . 'WSDL/ShipmentServiceV33.wsdl',
             [
                 'trace' => true,
                 'classmap' => [
@@ -121,7 +121,7 @@ class Api
                 $authentication
             )
         );
-        $client->__setLocation($this->getEndpoint() . 'services/ShipmentService/V4_4/');
+        $client->__setLocation($this->getEndpoint() . 'services/ShipmentService/V3_3/');
 
         try {
             $response = $client->storeOrders($storeOrders);

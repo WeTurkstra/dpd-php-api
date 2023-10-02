@@ -6,9 +6,9 @@ PHP wrapper for [DPD Germany](https://esolutions.dpd.com/entwickler/dpdwebservic
 
 Using:
 
-- LoginService version 2.0
+- LoginService version 2.1
 - ParcelLifeCycleService version 2.0
-- ShipmentService version 4.4
+- ShipmentService version 5.0
 
 ## Requirements
 
