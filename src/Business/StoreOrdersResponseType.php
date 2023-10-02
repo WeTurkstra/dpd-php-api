@@ -20,7 +20,7 @@ class StoreOrdersResponseType
     /**
      * @return OutputType|null
      */
-    public function getParcellabelsPDF(): ?OutputType
+    public function getParcellabelsPDF(): ?string
     {
         return $this->parcellabelsPDF ?? null;
     }
