@@ -79,7 +79,7 @@ class Api
                 'classmap' => [ 'Login' => Login::class ]
             ]
         );
-        $client->__setLocation($this->getEndpoint() . 'services/LoginService/V2_1/');
+        $client->__setLocation($this->getEndpoint() . '/services/LoginService/V2_1/');
 
         try {
             $response = $client->getAuth($credentials);
@@ -102,7 +102,7 @@ class Api
     public function storeOrders(Authentication $authentication, StoreOrders $storeOrders): bool|StoreOrdersResponseType|AuthenticationFault
     {
         $client = new SoapClient(
-            $this->getEndpoint() . 'WSDL/ShipmentServiceV33.wsdl',
+            $this->getEndpoint() . '/WSDL/ShipmentServiceV33.wsdl',
             [
                 'trace' => true,
                 'classmap' => [
@@ -121,7 +121,7 @@ class Api
                 $authentication
             )
         );
-        $client->__setLocation($this->getEndpoint() . 'services/ShipmentService/V3_3/');
+        $client->__setLocation($this->getEndpoint() . '/services/ShipmentService/V3_3/');
 
         try {
             $response = $client->storeOrders($storeOrders);
@@ -144,7 +144,7 @@ class Api
     public function getTrackingData(Authentication $authentication, GetTrackingData $trackingData): bool|TrackingResult|AuthenticationFault
     {
         $client = new SoapClient(
-            $this->getEndpoint() . 'services/ParcelLifeCycleService/V2_0/?wsdl',
+            $this->getEndpoint() . '/services/ParcelLifeCycleService/V2_0/?wsdl',
             [
                 'trace' => true,
                 'classmap' => [
@@ -163,7 +163,7 @@ class Api
                 $authentication
             )
         );
-        $client->__setLocation($this->getEndpoint() . 'services/ParcelLifeCycleService/V2_0/');
+        $client->__setLocation($this->getEndpoint() . '/services/ParcelLifeCycleService/V2_0/');
 
         try {
             $response = $client->getTrackingData($trackingData);
