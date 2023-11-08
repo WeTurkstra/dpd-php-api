@@ -203,7 +203,7 @@ class Api
     /**
      * @return string
      */
-    protected function getEndpoint(): string
+    public function getEndpoint(): string
     {
         return $this->endpoint[static::$environment];
     }
