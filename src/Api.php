@@ -33,8 +33,8 @@ class Api
     private static int $environment = self::DEV_ENVIRONMENT;
     /** @var string[]  */
     private array $endpoint = [
-        self::DEV_ENVIRONMENT => 'https://shipperadmintest.dpd.nl/PublicAPI/',
-        self::PROD_ENVIRONMENT => 'https://wsshipper.dpd.nl/soap/'
+        self::DEV_ENVIRONMENT => 'https://shipperadmintest.dpd.nl/PublicAPI',
+        self::PROD_ENVIRONMENT => 'https://wsshipper.dpd.nl/soap'
     ];
 
     /**
