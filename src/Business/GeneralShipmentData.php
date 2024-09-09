@@ -16,6 +16,7 @@ class GeneralShipmentData
     const PRODUCT_MAX = 'MAX'; // DPD MAX
     const PRODUCT_PL = 'PL'; // DPD PARCELLetter
     const PRODUCT_PM4 = 'PM4'; // DPD Priority
+    const PRODUCT_B2C = 'B2C'; //DPD Home
 
     const MAX_LENGTH_MPS_ID = 25;
     const MAX_LENGTH_C_USER = 10;
@@ -505,6 +506,12 @@ class GeneralShipmentData
         return $this;
     }
 
+    public function setProductDpdB2c(): static
+    {
+        $this->product = self::PRODUCT_B2C;
+        return $this;
+    }
+
     /**
      * @return bool
      */
@@ -732,7 +739,8 @@ class GeneralShipmentData
             self::PRODUCT_MAIL,
             self::PRODUCT_MAX,
             self::PRODUCT_PL,
-            self::PRODUCT_PM4
+            self::PRODUCT_PM4,
+            self::PRODUCT_B2C,
         ];
     }
 }
